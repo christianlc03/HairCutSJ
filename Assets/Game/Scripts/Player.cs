@@ -6,15 +6,21 @@ using static UnityEditor.PlayerSettings;
 
 public class Player : MonoBehaviour
 {
-    //VARIABLES
+    // MOVIMIENTO
     public float velocidad = 8f;
     private Rigidbody2D rb;
-    private Animator animator;
+
+    // DASH
+    public float distanciaDash = 5f;
+    public float duracionDash = 0.2f;
+    public float cooldownDash = 0.5f;
+    private bool enDash = false;
+    private bool puedeDash = true;
+    private Vector2 direccionDash;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -22,17 +28,53 @@ public class Player : MonoBehaviour
         float velocidadX = Input.GetAxis("Horizontal");
         float velocidadY = Input.GetAxis("Vertical");
 
-        Vector2 velocidadMov = new Vector2(velocidadX * velocidad, velocidadY * velocidad);
-        rb.velocity = velocidadMov;
-
+        // GIRAR
         if (velocidadX < 0)
-        {
             transform.localScale = new Vector3(-1, 1, 1);
+        else if (velocidadX > 0)
+            transform.localScale = new Vector3(1, 1, 1);
+
+        // DASH
+        if (Input.GetKeyDown(KeyCode.Space) && !enDash && puedeDash)
+        {
+            StartCoroutine(Dash(new Vector2(velocidadX, velocidadY)));
         }
 
-        if (velocidadX > 0)
+        // MOVIMIENTO NORMAL
+        if (!enDash)
         {
-            transform.localScale = new Vector3(1, 1, 1);
+            Vector2 velocidadMov = new Vector2(velocidadX * velocidad, velocidadY * velocidad);
+            rb.velocity = velocidadMov;
         }
     }
+
+    // CORUTINA DEL DASH
+    private IEnumerator Dash(Vector2 dir)
+    {
+        enDash = true;
+        puedeDash = false;
+        direccionDash = dir.normalized;
+
+        float tiempo = 0f;
+        while (tiempo < duracionDash)
+        {
+            rb.velocity = direccionDash * distanciaDash / duracionDash;
+            tiempo += Time.deltaTime;
+            yield return null;
+        }
+
+        rb.velocity = Vector2.zero;
+        enDash = false;
+
+        StartCoroutine(CooldownDash());
+    }
+
+    // CORUTINA DEL COOLDOWN
+    private IEnumerator CooldownDash()
+    {
+        yield return new WaitForSeconds(cooldownDash);
+        puedeDash = true;
+    }
+
+
 }
