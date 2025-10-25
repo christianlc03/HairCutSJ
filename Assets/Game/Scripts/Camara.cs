@@ -9,7 +9,7 @@ public class Camara : MonoBehaviour
     {
         if (seguimiento != null)
         {
-            transform.position = new Vector3(Mathf.Clamp(seguimiento.position.x, -19, 19), Mathf.Clamp(seguimiento.position.y, -16, 16), -20);
+            transform.position = new Vector3(Mathf.Clamp(seguimiento.position.x, -13, 13), Mathf.Clamp(seguimiento.position.y, -12, 12), -20);
         }
     }
 
