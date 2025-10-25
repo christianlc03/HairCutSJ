@@ -98,6 +98,9 @@ public class Player : MonoBehaviour
         vidaActual -= 7;
         ActualizarBarraVida();
 
+        peloActual += 2;
+        ActualizarBarraPelo();
+
         if (vidaActual < 0)
         {
             vidaActual = 0;
@@ -184,7 +187,7 @@ public class Player : MonoBehaviour
         {
             animator.SetTrigger("Morir"); */
 
-        float duracionAnimacion = 1.5f; 
+        //float duracionAnimacion = 1.5f; 
         //StartCoroutine(CambiarEscenaDespues(duracionAnimacion));
     }
 
