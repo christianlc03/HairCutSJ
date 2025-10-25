@@ -7,10 +7,12 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
     // MOVIMIENTO
+    [Header("Movimiento")]
     public float velocidad = 8f;
     private Rigidbody2D rb;
 
     // DASH
+    [Header("Dash")]
     public float distanciaDash = 5f;
     public float duracionDash = 0.2f;
     public float cooldownDash = 0.5f;
@@ -19,17 +21,26 @@ public class Player : MonoBehaviour
     private Vector2 direccionDash;
 
     //VIDA
+    [Header("Vida")]
     public float vidaMax = 5f;
     public float vidaActual = 5f;
     public Image barraVidaImagen;
 
     //DANO
+    [Header("Dano")]
     public bool envenenado = false;
 
     //PELO
+    [Header("Pelo")]
     public int peloActual = 0;
     public int maxPelo = 5;
     public Image barraPeloImagen;
+
+    //ANIMACIONES
+    [Header("Animaciones")]
+    private Animator anim;
+    private bool andando;
+
 
 
     void Start()
@@ -37,6 +48,7 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         vidaActual = vidaMax;
         ActualizarBarraVida();
+        anim = GetComponentInChildren<Animator>();
     }
 
     void Update()
@@ -61,6 +73,18 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && !enDash && puedeDash)
         {
             StartCoroutine(Dash(new Vector2(velocidadX, velocidadY)));
+            anim.SetTrigger("dash");
+        }
+
+        anim.SetBool("walk", andando);
+
+        if (!(velocidadX == 0 && velocidadY == 0))
+        {
+            andando = true;
+        }
+        else
+        {
+            andando = false;
         }
     }
 
