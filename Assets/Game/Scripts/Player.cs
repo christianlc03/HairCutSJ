@@ -86,6 +86,14 @@ public class Player : MonoBehaviour
         {
             andando = false;
         }
+
+        //CURACION
+        if (Input.GetKeyDown(KeyCode.C))
+            Curar();
+
+        
+        if (Input.GetKeyDown(KeyCode.X) && peloActual >= maxPelo)
+            LanzarBolaDePelo();
     }
 
 
@@ -137,15 +145,7 @@ public class Player : MonoBehaviour
             Morir();
         }
 
-        /*peloActual += 2;
-        ActualizarBarraPelo();
-
-        if (peloActual > maxPelo)
-        {
-            peloActual = maxPelo;
-        }
-
-        Debug.Log("Pelo acumulado: " + peloActual);*/
+        
     }
 
     // RECIBIR DAÑO POR VENENO
@@ -182,15 +182,17 @@ public class Player : MonoBehaviour
     }
 
     //CURACION
-    /*public void Curar(float cantidad)
+    public void Curar()
     {
-        vidaActual += cantidad;
+        vidaActual = vidaMax;
         if (vidaActual > vidaMax)
         {
             vidaActual = vidaMax;
             ActualizarBarraVida();
         }
-    }*/
+    }
+
+     
 
     //BARRA VIDA
     private void ActualizarBarraVida()
@@ -208,6 +210,22 @@ public class Player : MonoBehaviour
         {
             barraPeloImagen.fillAmount = Mathf.Lerp(0,1,((float) peloActual)/ maxPelo);
         }
+    }
+
+    //BOTON LIMPIEZA
+    private void limpieza()
+    {
+        if (vidaActual != vidaMax)
+        {
+            vidaActual = vidaMax;
+        }
+    }
+
+    //LANZAR BOLA AREA
+    private void LanzarBolaDePelo()
+    {
+        peloActual = 0;
+        ActualizarBarraPelo();
     }
 
     //MUERTE
