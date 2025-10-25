@@ -541,12 +541,12 @@ MonoBehaviour:
   distanciaDash: 5
   duracionDash: 0.2
   cooldownDash: 0.5
-  vidaMax: 100
-  vidaActual: 100
+  vidaMax: 5
+  vidaActual: 5
   barraVidaImagen: {fileID: 142954889}
   envenenado: 0
   peloActual: 0
-  maxPelo: 20
+  maxPelo: 5
   barraPeloImagen: {fileID: 1695442482}
 --- !u!50 &493274210
 Rigidbody2D:
@@ -1313,9 +1313,9 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 0
+  m_FillAmount: 1
   m_FillClockwise: 1
-  m_FillOrigin: 0
+  m_FillOrigin: 1
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 29.5
 --- !u!222 &1695442483

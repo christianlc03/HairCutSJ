@@ -19,8 +19,8 @@ public class Player : MonoBehaviour
     private Vector2 direccionDash;
 
     //VIDA
-    public float vidaMax = 100f;
-    public float vidaActual = 100f;
+    public float vidaMax = 5f;
+    public float vidaActual = 5f;
     public Image barraVidaImagen;
 
     //DANO
@@ -28,7 +28,7 @@ public class Player : MonoBehaviour
 
     //PELO
     public int peloActual = 0;
-    public int maxPelo = 20;
+    public int maxPelo = 5;
     public Image barraPeloImagen;
 
 
@@ -96,11 +96,11 @@ public class Player : MonoBehaviour
     //RECIBIR DANO ARANAZO
     public void RecibirDanoAranazo()
     {
-        vidaActual -= 7;
+        vidaActual -= 1;
         ActualizarBarraVida();
 
-        peloActual += 2;
-        ActualizarBarraPelo();
+        /*peloActual += 1;
+        ActualizarBarraPelo();*/
 
         if (vidaActual < 0)
         {
@@ -113,7 +113,7 @@ public class Player : MonoBehaviour
             Morir();
         }
 
-        peloActual += 2;
+        /*peloActual += 2;
         ActualizarBarraPelo();
 
         if (peloActual > maxPelo)
@@ -121,7 +121,7 @@ public class Player : MonoBehaviour
             peloActual = maxPelo;
         }
 
-        Debug.Log("Pelo acumulado: " + peloActual);
+        Debug.Log("Pelo acumulado: " + peloActual);*/
     }
 
     // RECIBIR DAÑO POR VENENO
@@ -173,7 +173,7 @@ public class Player : MonoBehaviour
     {
         if (barraVidaImagen != null)
         {
-            barraVidaImagen.fillAmount = vidaActual / vidaMax;
+            barraPeloImagen.fillAmount = Mathf.Lerp(0, 1, ((float)vidaActual) / vidaMax); 
         }
     }
 
