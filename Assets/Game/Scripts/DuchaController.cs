@@ -27,11 +27,7 @@ public class DuchaController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
-        {
-            Ducharse();
-        }
-        
+        Ducharse();
     }
 
     public void Destruir()

@@ -248,9 +248,4 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(tiempo);
         SceneManager.LoadScene("GameOver");
     }*/
-
-    public void Desaparecer()
-    {
-        anim.SetTrigger("invisible");
-    }
 }
