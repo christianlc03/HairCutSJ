@@ -43,4 +43,9 @@ public class EnemyController : MonoBehaviour
         }
       
     }
+
+    public void MorirInstantaneo()
+    {
+        Destroy(gameObject);
+    }
 }

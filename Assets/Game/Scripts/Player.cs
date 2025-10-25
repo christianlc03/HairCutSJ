@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -26,6 +26,20 @@ public class Player : MonoBehaviour
     public float vidaActual = 5f;
     public Image barraVidaImagen;
 
+    //ATAQUE ARANAZO
+    [Header("Ataque aranazo")]
+    public float rangoAtaque = 1.5f; 
+    public float danoAtaque = 1f;    
+    public Transform puntoAtaque;
+    public string tagEnemigo = "Enemigo";
+
+    //ATAQUE PELUSA AREA
+    [Header("Ataque especial bola pelo")]
+    public GameObject uiBolaDePeloActivado;    // UI que aparece cuando puedes lanzar
+    public GameObject uiBolaDePeloDesactivado; // UI que aparece cuando NO puedes
+    public GameObject prefabBolaPelo;          // Prefab que se lanza
+    public Transform puntoInstanciacionBola;
+
     //DANO
     [Header("Dano")]
     public bool envenenado = false;
@@ -36,6 +50,10 @@ public class Player : MonoBehaviour
     public int maxPelo = 5;
     public Image barraPeloImagen;
 
+    //PELO VISUAL
+    [Header("Pelos visuales en sprite")]
+    public GameObject[] pelosVisuales;
+
     //ANIMACIONES
     [Header("Animaciones")]
     private Animator anim;
@@ -43,14 +61,23 @@ public class Player : MonoBehaviour
 
 
 
+
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponentInChildren<Animator>();
+
         vidaActual = vidaMax;
         ActualizarBarraVida();
-        anim = GetComponentInChildren<Animator>();
+        ActualizarBarraPelo();
+        ActualizarPelosVisuales();
     }
 
+
+
+
+    
     void Update()
     {
         float velocidadX = Input.GetAxis("Horizontal");
@@ -87,14 +114,24 @@ public class Player : MonoBehaviour
             andando = false;
         }
 
+
+
         //CURACION
         if (Input.GetKeyDown(KeyCode.C))
             Curar();
 
-        
+        //LANZAR BOLA PELO
         if (Input.GetKeyDown(KeyCode.X) && peloActual >= maxPelo)
             LanzarBolaDePelo();
+
+        //ARAÑAR
+        if (Input.GetKeyDown(KeyCode.Z))
+            Atacar();
     }
+
+
+
+
 
 
     // CO RUTINA DEL DASH
@@ -128,27 +165,21 @@ public class Player : MonoBehaviour
     //RECIBIR DANO ARANAZO
     public void RecibirDanoAranazo()
     {
+        if (vidaActual <= 0) return;
+
         vidaActual -= 1;
         ActualizarBarraVida();
 
-        /*peloActual += 1;
-        ActualizarBarraPelo();*/
-
-        if (vidaActual < 0)
-        {
-            vidaActual = 0;
-            ActualizarBarraVida();
-        }
+        ActualizarPelosVisuales();
 
         if (vidaActual <= 0)
         {
+            vidaActual = 0;
             Morir();
         }
-
-        
     }
 
-    // RECIBIR DA�O POR VENENO
+    // RECIBIR DAÑO POR VENENO
     public void ActivarVeneno(float danoPorSegundo, float duracion)
     {
         if (!envenenado)
@@ -181,14 +212,37 @@ public class Player : MonoBehaviour
         envenenado = false;
     }
 
+    //ATAQUE ARANAZO
+    private void Atacar()
+    {
+        Collider2D[] objetosGolpeados = Physics2D.OverlapCircleAll(puntoAtaque.position, rangoAtaque);
+
+        foreach (Collider2D col in objetosGolpeados)
+        {
+            if (col.CompareTag(tagEnemigo))
+            {
+                col.GetComponent<EnemyController>()?.MorirInstantaneo();
+            }
+        }
+    }
+
     //CURACION
     public void Curar()
     {
-        vidaActual = vidaMax;
-        if (vidaActual > vidaMax)
+        if (vidaActual < vidaMax)
         {
+            int vidasRecuperadas = (int)(vidaMax - vidaActual);
             vidaActual = vidaMax;
             ActualizarBarraVida();
+
+            for (int i = 0; i < pelosVisuales.Length; i++)
+            {
+                pelosVisuales[i].SetActive(false);
+            }
+
+            peloActual += vidasRecuperadas;
+            if (peloActual > maxPelo) peloActual = maxPelo;
+            ActualizarBarraPelo();
         }
     }
 
@@ -206,9 +260,24 @@ public class Player : MonoBehaviour
     //BARRA PELO
     private void ActualizarBarraPelo()
     {
-        if (barraVidaImagen != null)
+        if (peloActual >= maxPelo)
         {
-            barraPeloImagen.fillAmount = Mathf.Lerp(0,1,((float) peloActual)/ maxPelo);
+            if (uiBolaDePeloActivado != null) uiBolaDePeloActivado.SetActive(true);
+            if (uiBolaDePeloDesactivado != null) uiBolaDePeloDesactivado.SetActive(false);
+        }
+        else
+        {
+            if (uiBolaDePeloActivado != null) uiBolaDePeloActivado.SetActive(false);
+            if (uiBolaDePeloDesactivado != null) uiBolaDePeloDesactivado.SetActive(true);
+        }
+    }
+    private void ActualizarPelosVisuales()
+    {
+        int pelusasActivas = (int)(vidaMax - vidaActual);
+
+        for (int i = 0; i < pelosVisuales.Length; i++)
+        {
+            pelosVisuales[i].SetActive(i < pelusasActivas);
         }
     }
 
@@ -224,8 +293,25 @@ public class Player : MonoBehaviour
     //LANZAR BOLA AREA
     private void LanzarBolaDePelo()
     {
+        if (peloActual < maxPelo) return;
+
+        Instantiate(prefabBolaPelo, puntoInstanciacionBola.position, Quaternion.identity);
+
         peloActual = 0;
         ActualizarBarraPelo();
+
+        
+
+       
+    }
+
+
+    //GIZMO
+    private void OnDrawGizmosSelected()
+    {
+        if (puntoAtaque == null) return;
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(puntoAtaque.position, rangoAtaque);
     }
 
     //MUERTE
