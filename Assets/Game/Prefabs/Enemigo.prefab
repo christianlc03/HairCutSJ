@@ -102,10 +102,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2
   distanciaDeCerca: 1
-  CountdownDano: 1
-  tiempoCountdownDano: 3
-  persecucion: 0
-  EnemigoMolesto: 0
 --- !u!61 &3895831563475021529
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -159,7 +155,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1172591112433291924}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -188,6 +184,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2665291226436056971}
   - component: {fileID: 3722624580087840632}
+  - component: {fileID: 6948836739109125521}
   m_Layer: 0
   m_Name: Trigger
   m_TagString: Untagged
@@ -255,3 +252,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.2545084, y: 1.2469108}
   m_EdgeRadius: 0
+--- !u!114 &6948836739109125521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5398816266288059604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c01e78e2e940d14e9aa5bcf99339bc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tiempoCountdownDanos: 1
