@@ -13,6 +13,12 @@ public class EnemyController : MonoBehaviour
     [Header("Valores Enemigo")]
     public float speed;
     public float distanciaDeCerca;
+    public bool CountdownDano;
+    public float tiempoCountdownDano;
+    public bool persecucion;
+
+    [Header("Tipos de enemigos")]
+    public bool EnemigoMolesto;
 
     // Start is called before the first frame update
     void Start()
@@ -34,10 +40,52 @@ public class EnemyController : MonoBehaviour
 
         direction.Normalize();
 
-        if (distance > distanciaDeCerca)
+        if (persecucion)
         {
-            transform.Translate(direction * speed * Time.deltaTime, Space.World);
+            if (distance > distanciaDeCerca)
+            {
+                transform.Translate(direction * speed * Time.deltaTime, Space.World);
+            }
         }
         
+        
+    }
+
+    IEnumerator CountDownAtaque()
+    {
+        //Esta esperando a que pueda recibir daño
+        if (!CountdownDano)
+        {
+            yield return new WaitForSeconds(tiempoCountdownDano);
+            CountdownDano = true;
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Player player = collision.gameObject.GetComponent<Player>();
+            persecucion = false;
+
+            if (player != null)
+            {
+                if (CountdownDano)
+                {
+                    player.RecibirDanoAranazo();
+                    CountdownDano = false;
+                    StartCoroutine(CountDownAtaque());
+                    Debug.Log("Miau");
+                }
+            }
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            persecucion = true;
+        }
     }
 }

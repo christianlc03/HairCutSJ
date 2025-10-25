@@ -273,6 +273,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 167152421}
   m_CullTransparentMesh: 1
+--- !u!1 &449118713
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 449118714}
+  m_Layer: 0
+  m_Name: SpawnerEnemigos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &449118714
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 449118713}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.6628637, y: -0.40374202, z: -0.16691235}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &493274208
 GameObject:
   m_ObjectHideFlags: 0
@@ -288,7 +319,7 @@ GameObject:
   - component: {fileID: 493274214}
   m_Layer: 0
   m_Name: Personaje
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -310,7 +341,7 @@ MonoBehaviour:
   duracionDash: 0.2
   cooldownDash: 0.5
   vidaMax: 100
-  vidaActual: 0
+  vidaActual: 100
   barraVidaImagen: {fileID: 142954889}
   envenenado: 0
   peloAcumulado: 0
@@ -741,7 +772,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
-  distanciaDeCerca: 1.5
+  distanciaDeCerca: 1
+  CountdownDano: 1
+  tiempoCountdownDano: 3
 --- !u!212 &710491435
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1154,3 +1187,4 @@ SceneRoots:
   - {fileID: 672272383}
   - {fileID: 1652708133}
   - {fileID: 710491436}
+  - {fileID: 449118714}

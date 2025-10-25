@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
 
     //VIDA
     public float vidaMax = 100f;
-    public float vidaActual;
+    public float vidaActual = 100f;
     public Image barraVidaImagen;
 
     //DANO
@@ -93,7 +93,7 @@ public class Player : MonoBehaviour
     }
 
     //RECIBIR DANO INSTANTE
-    public void RecibirDanoNormal()
+    public void RecibirDanoAranazo()
     {
         vidaActual -= 7;
         if (vidaActual < 0)
@@ -176,12 +176,14 @@ public class Player : MonoBehaviour
             animator.SetTrigger("Morir"); */
 
         float duracionAnimacion = 1.5f; 
-        StartCoroutine(CambiarEscenaDespues(duracionAnimacion));
+        //StartCoroutine(CambiarEscenaDespues(duracionAnimacion));
     }
 
+    /*
     private IEnumerator CambiarEscenaDespues(float tiempo)
     {
         yield return new WaitForSeconds(tiempo);
         SceneManager.LoadScene("GameOver");
     }
+    */
 }
