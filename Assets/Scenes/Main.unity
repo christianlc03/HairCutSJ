@@ -315,7 +315,7 @@ MonoBehaviour:
   envenenado: 0
   peloAcumulado: 0
   maxPelo: 20
-  barraPeloImagen: {fileID: 0}
+  barraPeloImagen: {fileID: 1695442482}
 --- !u!50 &493274210
 Rigidbody2D:
   serializedVersion: 4
@@ -985,7 +985,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 1
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0

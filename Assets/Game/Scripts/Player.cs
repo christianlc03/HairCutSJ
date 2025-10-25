@@ -93,9 +93,9 @@ public class Player : MonoBehaviour
     }
 
     //RECIBIR DANO INSTANTE
-    public void RecibirDano(float cantidad)
+    public void RecibirDanoNormal()
     {
-        vidaActual -= cantidad;
+        vidaActual -= 7;
         if (vidaActual < 0)
         {
             vidaActual = 0;
@@ -106,9 +106,11 @@ public class Player : MonoBehaviour
         {
             Morir();
         }
+
+
     }
 
-    public void RecibirDanoConPelo(int dano, int pelo)
+    /*public void RecibirDanoConPelo(int dano, int pelo)
     {
         RecibirDano(dano);           
 
@@ -116,10 +118,10 @@ public class Player : MonoBehaviour
         if (peloAcumulado > maxPelo) peloAcumulado = maxPelo;
 
         Debug.Log("Pelo acumulado: " + peloAcumulado);
-    }
+    }*/
 
     //RECIBIR DANO SEGUNDOS
-    public void Veneno(float danoSegundo, float duracion)
+    /*public void Veneno(float danoSegundo, float duracion)
     {
         if (!envenenado)
         {
@@ -140,7 +142,7 @@ public class Player : MonoBehaviour
         }
 
         envenenado = false;
-    }
+    }*/
 
     //CURACION
     public void Curar(float cantidad)
