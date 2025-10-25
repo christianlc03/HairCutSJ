@@ -29,6 +29,8 @@ public class Player : MonoBehaviour
     //PELO
     public int peloAcumulado = 0;
     public int maxPelo = 20;
+    public Image barraPeloImagen;
+
 
     void Start()
     {
