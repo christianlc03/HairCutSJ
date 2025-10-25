@@ -124,29 +124,38 @@ public class Player : MonoBehaviour
         Debug.Log("Pelo acumulado: " + peloActual);
     }
 
-    //RECIBIR DANO SEGUNDOS
-    /*public void Veneno(float danoSegundo, float duracion)
+    // RECIBIR DAÑO POR VENENO
+    public void ActivarVeneno(float danoPorSegundo, float duracion)
     {
         if (!envenenado)
         {
-            StartCoroutine(DanoPorSegundos(danoSegundo, duracion));
+            StartCoroutine(DanoPorVeneno(danoPorSegundo, duracion));
         }
     }
 
-    private IEnumerator DanoPorSegundos(float dano, float duracion)
+    private IEnumerator DanoPorVeneno(float dano, float duracion)
     {
         envenenado = true;
         float tiempo = 0f;
 
         while (tiempo < duracion)
         {
-            RecibirDano(dano);
+            vidaActual -= dano;
+            if (vidaActual <= 0)
+            {
+                vidaActual = 0;
+                ActualizarBarraVida();
+                Morir();
+                yield break;
+            }
+
+            ActualizarBarraVida();
             tiempo += 1f;
             yield return new WaitForSeconds(1f);
         }
 
         envenenado = false;
-    }*/
+    }
 
     //CURACION
     public void Curar(float cantidad)
