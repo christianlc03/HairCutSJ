@@ -182,7 +182,7 @@ public class Player : MonoBehaviour
     }
 
     //CURACION
-    public void Curar(float cantidad)
+    /*public void Curar(float cantidad)
     {
         vidaActual += cantidad;
         if (vidaActual > vidaMax)
@@ -190,14 +190,14 @@ public class Player : MonoBehaviour
             vidaActual = vidaMax;
             ActualizarBarraVida();
         }
-    }
+    }*/
 
     //BARRA VIDA
     private void ActualizarBarraVida()
     {
         if (barraVidaImagen != null)
         {
-            barraPeloImagen.fillAmount = Mathf.Lerp(0, 1, ((float)vidaActual) / vidaMax); 
+            barraVidaImagen.fillAmount = Mathf.Lerp(0, 1, ((float)vidaActual) / vidaMax); 
         }
     }
 
