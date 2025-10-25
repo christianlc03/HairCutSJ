@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -18,9 +18,19 @@ public class Player : MonoBehaviour
     private bool puedeDash = true;
     private Vector2 direccionDash;
 
+    //VIDA
+    public float vidaMax = 100f;
+    public float vidaActual;
+    public Image barraVidaImagen;
+
+    //DANO
+    public bool envenenado = false;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        vidaActual = vidaMax;
+        ActualizarBarraVida();
     }
 
     void Update()
@@ -34,22 +44,22 @@ public class Player : MonoBehaviour
         else if (velocidadX > 0)
             transform.localScale = new Vector3(1, 1, 1);
 
-        // DASH
-        if (Input.GetKeyDown(KeyCode.Space) && !enDash && puedeDash)
-        {
-            StartCoroutine(Dash(new Vector2(velocidadX, velocidadY)));
-        }
-
         // MOVIMIENTO NORMAL
         if (!enDash)
         {
             Vector2 velocidadMov = new Vector2(velocidadX * velocidad, velocidadY * velocidad);
             rb.velocity = velocidadMov;
         }
+
+        // DASH
+        if (Input.GetKeyDown(KeyCode.Space) && !enDash && puedeDash)
+        {
+            StartCoroutine(Dash(new Vector2(velocidadX, velocidadY)));
+        }
     }
 
-    // CORUTINA DEL DASH
-    private IEnumerator Dash(Vector2 dir)
+    // CO RUTINA DEL DASH
+    public IEnumerator Dash(Vector2 dir)
     {
         enDash = true;
         puedeDash = false;
@@ -69,12 +79,91 @@ public class Player : MonoBehaviour
         StartCoroutine(CooldownDash());
     }
 
-    // CORUTINA DEL COOLDOWN
+    // CO RUTINA DEL COOLDOWN
     private IEnumerator CooldownDash()
     {
         yield return new WaitForSeconds(cooldownDash);
         puedeDash = true;
     }
 
+    //RECIBIR DANO INSTANTE
+    public void RecibirDano(float cantidad)
+    {
+        vidaActual -= cantidad;
+        if (vidaActual < 0)
+        {
+            vidaActual = 0;
+            ActualizarBarraVida();
+        }
 
+        if (vidaActual <= 0)
+        {
+            Morir();
+        }
+    }
+
+    //RECIBIR DANO SEGUNDOS
+    public void Veneno(float danoSegundo, float duracion)
+    {
+        if (!envenenado)
+        {
+            StartCoroutine(DanoPorSegundos(danoSegundo, duracion));
+        }
+    }
+
+    private IEnumerator DanoPorSegundos(float dano, float duracion)
+    {
+        envenenado = true;
+        float tiempo = 0f;
+
+        while (tiempo < duracion)
+        {
+            RecibirDano(dano);
+            tiempo += 1f;
+            yield return new WaitForSeconds(1f);
+        }
+
+        envenenado = false;
+    }
+
+    //CURACION
+    public void Curar(float cantidad)
+    {
+        vidaActual += cantidad;
+        if (vidaActual > vidaMax)
+        {
+            vidaActual = vidaMax;
+            ActualizarBarraVida();
+        }
+    }
+
+    //BARRA VIDA
+    private void ActualizarBarraVida()
+    {
+        if (barraVidaImagen != null)
+        {
+            barraVidaImagen.fillAmount = vidaActual / vidaMax;
+        }
+    }
+
+    //MUERTE
+    private void Morir()
+    {
+        rb.velocity = Vector2.zero;
+        enDash = false;
+        puedeDash = false;
+
+        /*if (animator != null)
+        {
+            animator.SetTrigger("Morir"); */
+
+        float duracionAnimacion = 1.5f; 
+        StartCoroutine(CambiarEscenaDespues(duracionAnimacion));
+    }
+
+    private IEnumerator CambiarEscenaDespues(float tiempo)
+    {
+        yield return new WaitForSeconds(tiempo);
+        SceneManager.LoadScene("GameOver");
+    }
 }
