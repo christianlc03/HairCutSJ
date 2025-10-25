@@ -20,14 +20,14 @@ public class Player : MonoBehaviour
 
     //VIDA
     public float vidaMax = 100f;
-    public float vidaActual;
+    public float vidaActual = 100f;
     public Image barraVidaImagen;
 
     //DANO
     public bool envenenado = false;
 
     //PELO
-    public int peloAcumulado = 0;
+    public int peloActual = 0;
     public int maxPelo = 20;
     public Image barraPeloImagen;
 
@@ -92,10 +92,12 @@ public class Player : MonoBehaviour
         puedeDash = true;
     }
 
-    //RECIBIR DANO INSTANTE
-    public void RecibirDanoNormal()
+    //RECIBIR DANO ARANAZO
+    public void RecibirDanoAranazo()
     {
         vidaActual -= 7;
+        ActualizarBarraVida();
+
         if (vidaActual < 0)
         {
             vidaActual = 0;
@@ -107,18 +109,16 @@ public class Player : MonoBehaviour
             Morir();
         }
 
+        peloActual += 2;
+        ActualizarBarraPelo();
 
+        if (peloActual > maxPelo)
+        {
+            peloActual = maxPelo;
+        }
+
+        Debug.Log("Pelo acumulado: " + peloActual);
     }
-
-    /*public void RecibirDanoConPelo(int dano, int pelo)
-    {
-        RecibirDano(dano);           
-
-        peloAcumulado += pelo;       
-        if (peloAcumulado > maxPelo) peloAcumulado = maxPelo;
-
-        Debug.Log("Pelo acumulado: " + peloAcumulado);
-    }*/
 
     //RECIBIR DANO SEGUNDOS
     /*public void Veneno(float danoSegundo, float duracion)
@@ -164,6 +164,15 @@ public class Player : MonoBehaviour
         }
     }
 
+    //BARRA PELO
+    private void ActualizarBarraPelo()
+    {
+        if (barraVidaImagen != null)
+        {
+            barraPeloImagen.fillAmount = Mathf.Lerp(0,1,((float) peloActual)/ maxPelo);
+        }
+    }
+
     //MUERTE
     private void Morir()
     {
@@ -176,12 +185,12 @@ public class Player : MonoBehaviour
             animator.SetTrigger("Morir"); */
 
         float duracionAnimacion = 1.5f; 
-        StartCoroutine(CambiarEscenaDespues(duracionAnimacion));
+        //StartCoroutine(CambiarEscenaDespues(duracionAnimacion));
     }
 
-    private IEnumerator CambiarEscenaDespues(float tiempo)
+   /* private IEnumerator CambiarEscenaDespues(float tiempo)
     {
         yield return new WaitForSeconds(tiempo);
         SceneManager.LoadScene("GameOver");
-    }
+    }*/
 }
