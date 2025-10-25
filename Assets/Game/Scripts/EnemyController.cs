@@ -48,6 +48,10 @@ public class EnemyController : MonoBehaviour
             }
         }
         
+        if (EnemigoMolesto)
+        {
+            persecucion = true;
+        }
         
     }
 
@@ -70,12 +74,15 @@ public class EnemyController : MonoBehaviour
 
             if (player != null)
             {
-                if (CountdownDano)
+                if (!EnemigoMolesto)
                 {
-                    player.RecibirDanoAranazo();
-                    CountdownDano = false;
-                    StartCoroutine(CountDownAtaque());
-                    Debug.Log("Miau");
+                    if (CountdownDano)
+                    {
+                        player.RecibirDanoAranazo();
+                        CountdownDano = false;
+                        StartCoroutine(CountDownAtaque());
+                        Debug.Log("Miau");
+                    }
                 }
             }
         }
