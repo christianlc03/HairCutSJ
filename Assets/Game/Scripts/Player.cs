@@ -26,6 +26,10 @@ public class Player : MonoBehaviour
     //DANO
     public bool envenenado = false;
 
+    //PELO
+    public int peloAcumulado = 0;
+    public int maxPelo = 20;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -100,6 +104,16 @@ public class Player : MonoBehaviour
         {
             Morir();
         }
+    }
+
+    public void RecibirDanoConPelo(int dano, int pelo)
+    {
+        RecibirDano(dano);           
+
+        peloAcumulado += pelo;       
+        if (peloAcumulado > maxPelo) peloAcumulado = maxPelo;
+
+        Debug.Log("Pelo acumulado: " + peloAcumulado);
     }
 
     //RECIBIR DANO SEGUNDOS
