@@ -232,6 +232,7 @@ public class Player : MonoBehaviour
                 }
             }
         }
+        anim.SetTrigger("attack");
     }
 
     //CURACION
@@ -251,6 +252,7 @@ public class Player : MonoBehaviour
             peloActual += vidasRecuperadas;
             if (peloActual > maxPelo) peloActual = maxPelo;
             ActualizarBarraPelo();
+            anim.SetTrigger("curarse");
         }
     }
 

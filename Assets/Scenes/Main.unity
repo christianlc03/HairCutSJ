@@ -1930,63 +1930,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2080774677}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1274665503
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1565609488672254292, guid: 334eebcc883979749b1ca4089d01e5f1, type: 3}
-      propertyPath: m_Name
-      value: EnemigoEnfermo
-      objectReference: {fileID: 0}
-    - target: {fileID: 7132710381361203283, guid: 334eebcc883979749b1ca4089d01e5f1, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 9.650847
-      objectReference: {fileID: 0}
-    - target: {fileID: 7132710381361203283, guid: 334eebcc883979749b1ca4089d01e5f1, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.5240672
-      objectReference: {fileID: 0}
-    - target: {fileID: 7132710381361203283, guid: 334eebcc883979749b1ca4089d01e5f1, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7132710381361203283, guid: 334eebcc883979749b1ca4089d01e5f1, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7132710381361203283, guid: 334eebcc883979749b1ca4089d01e5f1, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7132710381361203283, guid: 334eebcc883979749b1ca4089d01e5f1, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7132710381361203283, guid: 334eebcc883979749b1ca4089d01e5f1, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7132710381361203283, guid: 334eebcc883979749b1ca4089d01e5f1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7132710381361203283, guid: 334eebcc883979749b1ca4089d01e5f1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7132710381361203283, guid: 334eebcc883979749b1ca4089d01e5f1, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 334eebcc883979749b1ca4089d01e5f1, type: 3}
 --- !u!1 &1275288976
 GameObject:
   m_ObjectHideFlags: 0
@@ -2231,6 +2174,7 @@ MonoBehaviour:
   catPrefabs:
   - {fileID: 1172591112433291924, guid: a92639f4b6d53e24287e1712ef8b014b, type: 3}
   - {fileID: 3987654808279857509, guid: cfc0593b792e06645a26af18eb7a989d, type: 3}
+  - {fileID: 1565609488672254292, guid: 334eebcc883979749b1ca4089d01e5f1, type: 3}
   spawns:
   - {fileID: 33403849}
   - {fileID: 821433646}
@@ -2238,7 +2182,7 @@ MonoBehaviour:
   - {fileID: 779066010}
   startDelay: 2
   spawnInterval: 1.5
-  duracionMaxima: 10
+  duracionMaxima: 210
   bossPrefab: {fileID: 923469336521913773, guid: ae7726cfc4b9f2f44982b84efe16c581, type: 3}
   bossSpawnPoint: {fileID: 720189322}
   contadorTexto: {fileID: 701061228}
@@ -2771,7 +2715,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: 21300000, guid: 6ab6d95753c50f44ea1cdd763434a759, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0e6a93502bdea554e9312e1d6178ff2e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -3059,4 +3003,3 @@ SceneRoots:
   - {fileID: 2080774677}
   - {fileID: 141686134}
   - {fileID: 154614572}
-  - {fileID: 1274665503}
