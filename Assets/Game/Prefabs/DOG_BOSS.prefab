@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6494508421501239509}
   - component: {fileID: 2099724739453940283}
   - component: {fileID: 5095153050763011423}
+  - component: {fileID: 3357466547397637288}
   m_Layer: 0
   m_Name: DOG_BOSS
   m_TagString: Boss
@@ -184,6 +185,23 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &3357466547397637288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 923469336521913773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42203910e157d4c44ae8e04a61680618, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canciones:
+  - {fileID: 8300000, guid: 757b41c33d4218447bae0d4295142c69, type: 3}
+  - {fileID: 8300000, guid: ac60ffcc9ae6d8f4483fa179a59ef4bd, type: 3}
+  - {fileID: 8300000, guid: 423be8f32c0c5e74290c0e9e915079d2, type: 3}
+  numeroCancion: 0
 --- !u!1 &1100619639092744422
 GameObject:
   m_ObjectHideFlags: 0

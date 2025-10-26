@@ -322,6 +322,12 @@ public class Player : MonoBehaviour
     private void Morir()
     {
         SceneManager.LoadScene("GameOver");
+        //Poner musica menu
+         ChangeMusic cMusic = GetComponent<ChangeMusic>();
+        if (cMusic!=null)
+        {
+            cMusic.CambiarMusica();
+        }
     }
 
     //DESAPARECE DUCHARSE

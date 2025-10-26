@@ -33,6 +33,8 @@ public class SpawnerController : MonoBehaviour
 
     public string tagEnemigo = "Enemigo";
 
+    private ChangeMusic cMusic;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -67,6 +69,12 @@ public class SpawnerController : MonoBehaviour
                 {
                     Instantiate(bossPrefab, bossSpawnPoint.position, Quaternion.identity);
                     bossInstanciado = true;
+                    //Poner musica
+                    cMusic = GetComponent<ChangeMusic>();
+                    if (cMusic != null)
+                    {
+                        cMusic.CambiarMusica();
+                    }
                 }
             }
         }

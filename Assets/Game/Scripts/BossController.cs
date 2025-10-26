@@ -134,6 +134,12 @@ public class BossController : MonoBehaviour
     void Morir()
     {
         SceneManager.LoadScene("HasGanado");
+        //POner musica menu
+        ChangeMusic cMusic = GetComponent<ChangeMusic>();
+        if (cMusic != null)
+        {
+            cMusic.CambiarMusica();
+        }
     }
 
     public  void OnDrawGizmosSelected()
