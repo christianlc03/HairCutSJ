@@ -19,7 +19,7 @@ public class SpawnerController : MonoBehaviour
     public float spawnInterval = 1.5f;
 
     //Tiempo Spawn
-    public float duracionMaxima = 20f; // 4 minutos
+    public float duracionMaxima = 240f; // 4 minutos
     private float tiempoTranscurrido = 0f;
     private bool spawneando = true;
 
