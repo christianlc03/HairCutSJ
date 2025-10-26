@@ -25,7 +25,7 @@ public class BossController : MonoBehaviour
 
     [Header("Vida")]
     public int vidaMax = 20;
-    private int vidaActual;
+    public int vidaActual;
     public Slider barraVida;
 
     void Start()
@@ -68,16 +68,7 @@ public class BossController : MonoBehaviour
             }
         }
 
-        if (vidaMax <= 0)
-        {
-            SceneManager.LoadScene("HasGanado");
-            //POner musica menu
-            ChangeMusic cMusic = GetComponent<ChangeMusic>();
-            if (cMusic != null)
-            {
-                cMusic.CambiarMusica();
-            }
-        }
+        
     }
 
     IEnumerator ElegirAtaque()
@@ -137,6 +128,17 @@ public class BossController : MonoBehaviour
         vidaActual -= 1;
         if (barraVida != null)
             barraVida.value = vidaActual;
+
+        if (vidaActual <= 0)
+        {
+            SceneManager.LoadScene("HasGanado");
+            //POner musica menu
+            ChangeMusic cMusic = GetComponent<ChangeMusic>();
+            if (cMusic != null)
+            {
+                cMusic.CambiarMusica();
+            }
+        }
     }
 
     public  void OnDrawGizmosSelected()
