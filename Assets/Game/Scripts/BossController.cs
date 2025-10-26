@@ -67,6 +67,17 @@ public class BossController : MonoBehaviour
                     transform.localScale = new Vector3(-1, 1, 1);
             }
         }
+
+        if (vidaMax <= 0)
+        {
+            SceneManager.LoadScene("HasGanado");
+            //POner musica menu
+            ChangeMusic cMusic = GetComponent<ChangeMusic>();
+            if (cMusic != null)
+            {
+                cMusic.CambiarMusica();
+            }
+        }
     }
 
     IEnumerator ElegirAtaque()
@@ -126,20 +137,6 @@ public class BossController : MonoBehaviour
         vidaActual -= 1;
         if (barraVida != null)
             barraVida.value = vidaActual;
-
-        if (vidaActual <= 0)
-            Morir();
-    }
-
-    void Morir()
-    {
-        SceneManager.LoadScene("HasGanado");
-        //POner musica menu
-        ChangeMusic cMusic = GetComponent<ChangeMusic>();
-        if (cMusic != null)
-        {
-            cMusic.CambiarMusica();
-        }
     }
 
     public  void OnDrawGizmosSelected()
