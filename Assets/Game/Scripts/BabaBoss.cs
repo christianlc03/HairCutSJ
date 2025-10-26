@@ -4,23 +4,27 @@ using UnityEngine;
 
 public class BabaBoss : MonoBehaviour
 {
-    public float duracion = 3f;
-    public float factorRalentizacion = 0.5f;
+    public float duracion = 2f;          // tiempo de ralentización
+    public float factorRalentizacion = 0.5f; // velocidad relativa
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            StartCoroutine(Ralentizar(other.GetComponent<Player>()));
+            Player player = other.GetComponent<Player>();
+            if (player != null)
+            {
+                StartCoroutine(RalentizarJugador(player));
+            }
         }
     }
 
-    IEnumerator Ralentizar(Player player)
+    IEnumerator RalentizarJugador(Player player)
     {
-        if (player == null) yield break;
-
+        Debug.Log("Relentizado");
+        float velocidadOriginal = player.velocidad;
         player.velocidad *= factorRalentizacion;
         yield return new WaitForSeconds(duracion);
-        player.velocidad /= factorRalentizacion;
+        player.velocidad = velocidadOriginal;
     }
 }

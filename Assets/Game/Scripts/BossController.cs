@@ -7,18 +7,19 @@ using UnityEngine.UI;
 public class BossController : MonoBehaviour
 {
     [Header("Movimiento")]
-    public float speed = 3f;
+    public float speed = 5f;
     private GameObject player;
     private Rigidbody2D rb;
 
     [Header("Ataque")]
-    public float distanciaDeAtaque = 7f; // rango para que ataque
-    public float rangoMordisco = 1.5f;   // rango específico del mordisco
-    public float cooldownAtaque = 3f;
+    public float distanciaDeAtaque = 5f; // rango para que ataque
+    public float rangoMordisco = 5f;   // rango específico del mordisco
+    public float cooldownAtaque = 1f;
     private bool puedeAtacar = true;
 
     [Header("Prefabs")]
     public GameObject babaPrefab;
+    public Transform puntoBaba;
     public GameObject perritoPrefab;
     public Transform spawnPerritosPoint;
 
@@ -59,6 +60,11 @@ public class BossController : MonoBehaviour
             {
                 Vector2 dir = (player.transform.position - transform.position).normalized;
                 rb.velocity = dir * speed;
+
+                if (dir.x < 0)
+                    transform.localScale = new Vector3(1, 1, 1);
+                else if (dir.x > 0)
+                    transform.localScale = new Vector3(-1, 1, 1);
             }
         }
     }
@@ -89,24 +95,28 @@ public class BossController : MonoBehaviour
 
     void AtaqueBaba()
     {
-        Instantiate(babaPrefab, transform.position, Quaternion.identity);
-        // Prefab debe aplicar ralentización al jugador
+        Debug.Log("AtaqueBaba");
+        Instantiate(babaPrefab, puntoBaba.position, Quaternion.identity);
+        
     }
+
 
     void AtaqueMordisco()
     {
-        Collider2D[] objetosGolpeados = Physics2D.OverlapCircleAll(transform.position, rangoMordisco);
-        foreach (Collider2D col in objetosGolpeados)
+        Debug.Log("AtaqueMordisco");
+
+        float distancia = Vector2.Distance(transform.position, player.transform.position);
+        if (distancia <= rangoMordisco)
         {
-            if (col.CompareTag("Player"))
-            {
-                col.GetComponent<Player>()?.RecibirDanoAranazo();
-            }
+            player.GetComponent<Player>()?.RecibirDanoAranazo();
+            Debug.Log("Player recibió daño del mordisco");
         }
     }
 
     void AtaqueHorda()
     {
+        Debug.Log("AtaqueHorda");
+
         // Solo un perrito
         Instantiate(perritoPrefab, spawnPerritosPoint.position, Quaternion.identity);
     }

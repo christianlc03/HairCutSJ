@@ -224,6 +224,12 @@ public class Player : MonoBehaviour
                 {
                     col.GetComponent<EnemyController>()?.MorirInstantaneo();
                 }
+
+                if (col.CompareTag("Boss"))
+                {
+                    Debug.Log("Has atacado al Boss");
+                    col.GetComponent<BossController>()?.RecibirDano();
+                }
             }
         }
     }
