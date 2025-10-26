@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpawnerController : MonoBehaviour
 {
@@ -17,6 +18,15 @@ public class SpawnerController : MonoBehaviour
     public float startDelay = 2f;
     public float spawnInterval = 1.5f;
 
+    //Tiempo Spawn
+    public float duracionMaxima = 20f; // 4 minutos
+    private float tiempoTranscurrido = 0f;
+    private bool spawneando = true;
+
+    public Text contadorTexto;
+
+    public string tagEnemigo = "Enemigo";
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,14 +37,43 @@ public class SpawnerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = player.transform.position;
+        if (player != null)
+            transform.position = player.transform.position;
+
+        if (spawneando)
+        {
+            tiempoTranscurrido += Time.deltaTime;
+            float tiempoRestante = Mathf.Clamp(duracionMaxima - tiempoTranscurrido, 0f, duracionMaxima);
+            ActualizarContadorUI(tiempoRestante);
+
+            if (tiempoTranscurrido >= duracionMaxima)
+            {
+                spawneando = false;
+                contadorTexto.gameObject.SetActive(false); // Oculta el contador cuando termina
+                
+                GameObject[] enemigos = GameObject.FindGameObjectsWithTag(tagEnemigo);
+                foreach (GameObject enemigo in enemigos)
+                {
+                    Destroy(enemigo);
+                }
+            }
+        }
     }
 
     void SpawnRandomCat()
     {
+        if (!spawneando) return;
+
         int catIndex = Random.Range(0, catPrefabs.Length);
         Transform spawnPosT = spawns[Random.Range(0, spawns.Length)];
         Vector2 spawnPos = spawnPosT.position;
         Instantiate(catPrefabs[catIndex], spawnPos, catPrefabs[catIndex].transform.rotation = Quaternion.Euler(0f, 0f, 0f));
+    }
+
+    void ActualizarContadorUI(float tiempoRestante)
+    {
+        int minutos = Mathf.FloorToInt(tiempoRestante / 60f);
+        int segundos = Mathf.FloorToInt(tiempoRestante % 60f);
+        contadorTexto.text = string.Format("{0:00}:{1:00}", minutos, segundos);
     }
 }

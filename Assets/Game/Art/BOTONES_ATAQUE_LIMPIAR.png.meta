@@ -95,7 +95,49 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: BOTONES_ATAQUE_LIMPIAR_0
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 530
+        width: 465
+        height: 436
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3451d3379b57bed468da20d3d58d3e62
+      internalID: 1244026397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BOTONES_ATAQUE_LIMPIAR_1
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 39
+        width: 466
+        height: 438
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a010367fa99e776439c14dddad90ae35
+      internalID: 1967719157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -106,7 +148,9 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      BOTONES_ATAQUE_LIMPIAR_0: 1244026397
+      BOTONES_ATAQUE_LIMPIAR_1: 1967719157
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

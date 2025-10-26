@@ -29,15 +29,15 @@ public class Player : MonoBehaviour
     //ATAQUE ARANAZO
     [Header("Ataque aranazo")]
     public float rangoAtaque = 1.5f; 
-    public float danoAtaque = 1f;    
-    public Transform puntoAtaque;
+    public float danoAtaque = 1f;
+    public Transform[] puntosAtaque;
     public string tagEnemigo = "Enemigo";
 
     //ATAQUE PELUSA AREA
     [Header("Ataque especial bola pelo")]
-    public GameObject uiBolaDePeloActivado;    // UI que aparece cuando puedes lanzar
-    public GameObject uiBolaDePeloDesactivado; // UI que aparece cuando NO puedes
-    public GameObject prefabBolaPelo;          // Prefab que se lanza
+    public GameObject uiBolaDePeloActivado;    
+    public GameObject uiBolaDePeloDesactivado; 
+    public GameObject prefabBolaPelo;          
     public Transform puntoInstanciacionBola;
 
     //DANO
@@ -117,15 +117,15 @@ public class Player : MonoBehaviour
 
 
         //CURACION
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.V))
             Curar();
 
         //LANZAR BOLA PELO
         if (Input.GetKeyDown(KeyCode.X) && peloActual >= maxPelo)
             LanzarBolaDePelo();
 
-        //ARAÑAR
-        if (Input.GetKeyDown(KeyCode.Z))
+        //ARANAR
+        if (Input.GetKeyDown(KeyCode.C))
             Atacar();
     }
 
@@ -179,7 +179,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    // RECIBIR DAÑO POR VENENO
+    // RECIBIR DANO POR VENENO
     public void ActivarVeneno(float danoPorSegundo, float duracion)
     {
         if (!envenenado)
@@ -215,13 +215,15 @@ public class Player : MonoBehaviour
     //ATAQUE ARANAZO
     private void Atacar()
     {
-        Collider2D[] objetosGolpeados = Physics2D.OverlapCircleAll(puntoAtaque.position, rangoAtaque);
-
-        foreach (Collider2D col in objetosGolpeados)
+        foreach (Transform punto in puntosAtaque)
         {
-            if (col.CompareTag(tagEnemigo))
+            Collider2D[] objetosGolpeados = Physics2D.OverlapCircleAll(punto.position, rangoAtaque);
+            foreach (Collider2D col in objetosGolpeados)
             {
-                col.GetComponent<EnemyController>()?.MorirInstantaneo();
+                if (col.CompareTag(tagEnemigo))
+                {
+                    col.GetComponent<EnemyController>()?.MorirInstantaneo();
+                }
             }
         }
     }
@@ -265,7 +267,7 @@ public class Player : MonoBehaviour
             barraPeloImagen.fillAmount = (float)peloActual / maxPelo;
         }
 
-        // Activar/desactivar indicador de ataque listo
+        // SPRITE ATAQUE AREA
         if (peloActual >= maxPelo)
         {
             if (uiBolaDePeloActivado != null) uiBolaDePeloActivado.SetActive(true);
@@ -287,15 +289,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    //BOTON LIMPIEZA
-    private void limpieza()
-    {
-        if (vidaActual != vidaMax)
-        {
-            vidaActual = vidaMax;
-        }
-    }
-
     //LANZAR BOLA AREA
     private void LanzarBolaDePelo()
     {
@@ -308,34 +301,25 @@ public class Player : MonoBehaviour
     //GIZMO
     private void OnDrawGizmosSelected()
     {
-        if (puntoAtaque == null) return;
+        if (puntosAtaque == null) return;
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(puntoAtaque.position, rangoAtaque);
+        foreach (Transform punto in puntosAtaque)
+        {
+            if (punto != null)
+                Gizmos.DrawWireSphere(punto.position, rangoAtaque);
+        }
     }
 
     //MUERTE
     private void Morir()
     {
-        rb.velocity = Vector2.zero;
-        enDash = false;
-        puedeDash = false;
-
-        /*if (animator != null)
-        {
-            animator.SetTrigger("Morir"); */
-
-        //float duracionAnimacion = 1.5f; 
-        //StartCoroutine(CambiarEscenaDespues(duracionAnimacion));
+        SceneManager.LoadScene("GameOver");
     }
 
-   /* private IEnumerator CambiarEscenaDespues(float tiempo)
-    {
-        yield return new WaitForSeconds(tiempo);
-        SceneManager.LoadScene("GameOver");
-    }*/
-
+    //DESAPARECE DUCHARSE
     public void Desaparecer()
     {
         anim.SetTrigger("invisible");
+
     }
 }
