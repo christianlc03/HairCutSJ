@@ -16,6 +16,8 @@ public class EnemyController : MonoBehaviour
     public float speed;
     public float distanciaDeCerca;
 
+    public Animator animFX;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -53,5 +55,10 @@ public class EnemyController : MonoBehaviour
     public void MorirInstantaneo()
     {
         Destroy(gameObject);
+    }
+
+    public void Contagiar()
+    {
+        animFX.SetTrigger("contagiar");
     }
 }

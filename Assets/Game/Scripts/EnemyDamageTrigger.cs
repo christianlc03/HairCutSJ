@@ -8,6 +8,7 @@ public class EnemyDamageTrigger : MonoBehaviour
     public float tiempoCountdownDanos = 1f;
     private bool puedeAtacar = true;
     private EnemyController enemyController;
+    public bool gatoEnfermo = false;
 
     void Start()
     {
@@ -24,15 +25,38 @@ public class EnemyDamageTrigger : MonoBehaviour
 
             if (player != null)
             {
-                player.RecibirDanoAranazo();
-                Debug.Log("Enemigo hizo daño (trigger)");
+                if (!gatoEnfermo)
+                {
+                    player.RecibirDanoAranazo();
+                    Debug.Log("Enemigo hizo daño (trigger)");
 
-                StartCoroutine(CooldownAtaque());
-
-                
+                    StartCoroutine(CooldownAtaque());
+                }
             }
 
             
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        // Asegúrate de usar el mismo tag que tenga el jugador
+        if (collision.CompareTag("Player"))
+        {
+            Player player = collision.GetComponent<Player>();
+            Debug.Log("Estoy haciendo Triggre");
+
+            if (player != null)
+            {
+                if (gatoEnfermo)
+                {
+                    player.ActivarVeneno(0.1f, 5f);
+                    enemyController.Contagiar();
+                    Debug.Log("Estas envenenado");
+                }
+            }
+
+
         }
     }
 
