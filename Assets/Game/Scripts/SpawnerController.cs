@@ -23,6 +23,12 @@ public class SpawnerController : MonoBehaviour
     private float tiempoTranscurrido = 0f;
     private bool spawneando = true;
 
+    //Instancia Boss
+    [Header("Boss")]
+    public GameObject bossPrefab;
+    public Transform bossSpawnPoint;
+    private bool bossInstanciado = false;
+
     public Text contadorTexto;
 
     public string tagEnemigo = "Enemigo";
@@ -55,6 +61,12 @@ public class SpawnerController : MonoBehaviour
                 foreach (GameObject enemigo in enemigos)
                 {
                     Destroy(enemigo);
+                }
+               
+                if (!bossInstanciado && bossPrefab != null && bossSpawnPoint != null)
+                {
+                    Instantiate(bossPrefab, bossSpawnPoint.position, Quaternion.identity);
+                    bossInstanciado = true;
                 }
             }
         }
