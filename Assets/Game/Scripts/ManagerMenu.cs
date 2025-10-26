@@ -21,6 +21,10 @@ public class ManagerMenu : MonoBehaviour
         SceneManager.LoadScene("Creditos");
     }
 
+    public void CambioEscenaInicio()
+    {
+        SceneManager.LoadScene("Inicio");
+    }
     public void QuitarJuego()
     {
         Application.Quit();
