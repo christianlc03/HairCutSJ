@@ -41,7 +41,13 @@ public class EnemyController : MonoBehaviour
         {
             transform.Translate(direction * speed * Time.deltaTime, Space.World);
         }
-      
+
+        // GIRAR
+        if (playerPos.x < 0)
+            transform.localScale = new Vector3(-1, 1, 1);
+        else if (playerPos.x > 0)
+            transform.localScale = new Vector3(1, 1, 1);
+
     }
 
     public void MorirInstantaneo()

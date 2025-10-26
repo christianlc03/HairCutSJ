@@ -36,6 +36,7 @@ public class DuchaController : MonoBehaviour
 
     public void Destruir()
     {
+        GameManager.Instance.ActivarSpawnearBanera();
         Destroy(this.gameObject);
     }
 }
