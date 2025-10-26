@@ -2175,6 +2175,7 @@ MonoBehaviour:
   - {fileID: 1172591112433291924, guid: a92639f4b6d53e24287e1712ef8b014b, type: 3}
   - {fileID: 3987654808279857509, guid: cfc0593b792e06645a26af18eb7a989d, type: 3}
   - {fileID: 1565609488672254292, guid: 334eebcc883979749b1ca4089d01e5f1, type: 3}
+  - {fileID: 1565609488672254292, guid: 334eebcc883979749b1ca4089d01e5f1, type: 3}
   spawns:
   - {fileID: 33403849}
   - {fileID: 821433646}
@@ -2182,7 +2183,7 @@ MonoBehaviour:
   - {fileID: 779066010}
   startDelay: 2
   spawnInterval: 1.5
-  duracionMaxima: 210
+  duracionMaxima: 90
   bossPrefab: {fileID: 923469336521913773, guid: ae7726cfc4b9f2f44982b84efe16c581, type: 3}
   bossSpawnPoint: {fileID: 720189322}
   contadorTexto: {fileID: 701061228}
