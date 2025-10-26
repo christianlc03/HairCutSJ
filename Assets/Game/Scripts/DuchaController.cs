@@ -7,7 +7,7 @@ public class DuchaController : MonoBehaviour
     //VARIABLES
 
     private Animator anim;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +17,7 @@ public class DuchaController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void Ducharse()
@@ -31,7 +31,7 @@ public class DuchaController : MonoBehaviour
         {
             Ducharse();
         }
-        
+
     }
 
     public void Destruir()

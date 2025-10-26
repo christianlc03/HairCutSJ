@@ -260,6 +260,12 @@ public class Player : MonoBehaviour
     //BARRA PELO
     private void ActualizarBarraPelo()
     {
+        if (barraPeloImagen != null)
+        {
+            barraPeloImagen.fillAmount = (float)peloActual / maxPelo;
+        }
+
+        // Activar/desactivar indicador de ataque listo
         if (peloActual >= maxPelo)
         {
             if (uiBolaDePeloActivado != null) uiBolaDePeloActivado.SetActive(true);
@@ -293,16 +299,9 @@ public class Player : MonoBehaviour
     //LANZAR BOLA AREA
     private void LanzarBolaDePelo()
     {
-        if (peloActual < maxPelo) return;
-
         Instantiate(prefabBolaPelo, puntoInstanciacionBola.position, Quaternion.identity);
-
         peloActual = 0;
         ActualizarBarraPelo();
-
-        
-
-       
     }
 
 

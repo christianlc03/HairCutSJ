@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5911598225462102086}
   - component: {fileID: -4262354817270408448}
+  - component: {fileID: -7768311038273846095}
   m_Layer: 0
   m_Name: Bola pelo
   m_TagString: Untagged
@@ -84,3 +85,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-7768311038273846095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7990528997684029071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9d402780af724045a39ec86d225e6df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radioAtaque: 3
+  duracion: 0.5
+  tagEnemigo: Enemigo

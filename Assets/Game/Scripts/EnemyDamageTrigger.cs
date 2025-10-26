@@ -28,7 +28,11 @@ public class EnemyDamageTrigger : MonoBehaviour
                 Debug.Log("Enemigo hizo daño (trigger)");
 
                 StartCoroutine(CooldownAtaque());
+
+                
             }
+
+            
         }
     }
 
